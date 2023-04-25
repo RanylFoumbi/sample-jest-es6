@@ -1,8 +1,11 @@
-import axios from 'axios';
 import { expect, jest } from '@jest/globals'
 import getPhotosByAlbumId from '../index.js'
 
-jest.mock('axios')
+jest.unstable_mockModule('axios', () => ({
+  axios: jest.fn(),
+}));
+
+const { axios } = await import('axios');
 
 describe('test getPhotosByAlbumId', () => {
   it('fetches photos by album id', async () => {
@@ -24,9 +27,9 @@ describe('test getPhotosByAlbumId', () => {
 
     const photos = await getPhotosByAlbumId(ID);
 
-    expect(axios).toHaveReturned();
     expect(axios).toHaveBeenCalledTimes(1);
     expect(axios).toHaveBeenCalledWith(expectedConfig);
+    expect(axios).toHaveReturned();
     expect(photos).toEqual(expectedData);
   });
 });
