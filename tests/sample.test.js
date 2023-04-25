@@ -1,11 +1,12 @@
 import { expect, jest } from '@jest/globals'
-import getPhotosByAlbumId from '../index.js'
+// import getPhotosByAlbumId from '../index.js'
 
-jest.unstable_mockModule('axios', () => ({
-  axios: jest.fn(),
+jest.unstable_mockModule("axios", () => ({
+  default: jest.fn(),
 }));
 
-const { axios } = await import('axios');
+const { default: axios } = await import("axios");
+const { default: getPhotosByAlbumId } = await import("../index.js");
 
 describe('test getPhotosByAlbumId', () => {
   it('fetches photos by album id', async () => {
